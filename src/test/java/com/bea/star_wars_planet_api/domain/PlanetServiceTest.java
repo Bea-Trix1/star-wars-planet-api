@@ -37,4 +37,14 @@ public class PlanetServiceTest {
 
         assertThatThrownBy(() -> repository.save(INVALID_PLANET)).isInstanceOf(RuntimeException.class);
     }
+
+    @Test
+    public void getPlanet_byExistingId_returnsPlanet() {
+        // TODO - a implementar
+    }
+
+    @Test
+    public void getPlanet_byUnexistingId_returnsEmpty() {
+        // TODO - a implementar
+    }
 }
