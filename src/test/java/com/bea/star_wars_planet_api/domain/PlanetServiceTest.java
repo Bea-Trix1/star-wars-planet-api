@@ -13,6 +13,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+import java.util.Optional;
+
 @ExtendWith(MockitoExtension.class)
 public class PlanetServiceTest {
     
@@ -40,11 +43,34 @@ public class PlanetServiceTest {
 
     @Test
     public void getPlanet_byExistingId_returnsPlanet() {
-        // TODO - a implementar
+        when(repository.findById(123L)).thenReturn(Optional.of(PLANET));
+        
+        Planet planet = planetService.getById(123L).get();
+        
+        assertThat(planet).isNotNull();
+        assertThat(planet).isEqualTo(PLANET);
     }
 
     @Test
     public void getPlanet_byUnexistingId_returnsEmpty() {
-        // TODO - a implementar
+        when(repository.findById(123L)).thenReturn(Optional.empty());
+        
+        assertThat(planetService.getById(123L)).isEmpty();
+    }
+
+    @Test
+    public void findPlanet__returnsAllPlanets() {
+        when(repository.findAll()).thenReturn(List.of(PLANET));
+        
+        Planet planet = planetService.findPlanet().iterator().next();
+        
+        assertThat(planet).isEqualTo(PLANET);
+    }
+
+    @Test
+    public void findPlanet_returnsEmpty() {
+        when(repository.findAll()).thenReturn(List.of());
+        
+        assertThat(planetService.findPlanet()).isEmpty();
     }
 }

@@ -21,15 +21,20 @@ public class PlanetController {
     @Autowired
     private PlanetService planetService;
 
-    @PostMapping
-    public ResponseEntity<Planet> create(@RequestBody Planet planet){
+    @PostMapping("/create")
+    public ResponseEntity<Planet> createPlanet(@RequestBody Planet planet){
         Planet planetCreated = planetService.create(planet);
         return ResponseEntity.status(HttpStatus.CREATED).body(planetCreated);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Planet> getById(@PathVariable("id") Long id){
+    public ResponseEntity<Planet> getPlanetById(@PathVariable Long id){
         return planetService.getById(id).map(planet -> ResponseEntity.ok(planet))
         .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/findAllPlanets")
+    public ResponseEntity<Iterable<Planet>> findAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(planetService.findPlanet());
     }
 }

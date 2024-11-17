@@ -1,5 +1,6 @@
 package com.bea.star_wars_planet_api.domain;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +20,10 @@ public class PlanetService {
 
     public Optional <Planet> getById(Long id){
         return planetRepository.findById(id);
+    }
+
+    public Iterable<Planet> findPlanet(){
+        return planetRepository.findAll();
     }
 
 }
